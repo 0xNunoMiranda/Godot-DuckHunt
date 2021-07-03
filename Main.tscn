@@ -1,0 +1,150 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://assets/cenariotras.png" type="Texture" id=1]
+[ext_resource path="res://assets/cenariofrente.png" type="Texture" id=2]
+[ext_resource path="res://topo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Alvo.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://assets/sons/round.wav" type="AudioStream" id=6]
+[ext_resource path="res://chao.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/cao/rindo.png" type="Texture" id=8]
+[ext_resource path="res://assets/cao/captura.png" type="Texture" id=9]
+[ext_resource path="res://assets/sons/cao_rindo.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sons/cao_captura.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/PressStart2P.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://assets/hud.png" type="Texture" id=13]
+[ext_resource path="res://assets/sons/flyaway.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sons/colidiu.wav" type="AudioStream" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "catch"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("captura:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2.3, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 385, 556.629 ), Vector2( 385, 429.629 ), Vector2( 385, 429.629 ), Vector2( 385, 565.629 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "rir"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("rir:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 385, 551.631 ), Vector2( 385, 420.631 ), Vector2( 385, 430.631 ), Vector2( 385, 424.631 ), Vector2( 385, 426.631 ), Vector2( 385, 422.631 ), Vector2( 385, 422.631 ), Vector2( 385, 422.631 ), Vector2( 385, 554.631 ) ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 12 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Fundo" type="Sprite" parent="."]
+z_index = -3
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Fundo2" type="Sprite" parent="."]
+z_index = 5
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Alvo" parent="." instance=ExtResource( 4 )]
+z_index = 5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 385, 0 )
+stream = ExtResource( 6 )
+autoplay = true
+
+[node name="duckgenerate" type="Timer" parent="."]
+one_shot = true
+
+[node name="espera" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="topo" parent="." instance=ExtResource( 3 )]
+position = Vector2( 385, -104.292 )
+
+[node name="chao" parent="." instance=ExtResource( 7 )]
+position = Vector2( 385, 789.932 )
+
+[node name="captura" type="Sprite" parent="."]
+position = Vector2( 385, 556.629 )
+texture = ExtResource( 9 )
+
+[node name="rir" type="Sprite" parent="."]
+position = Vector2( 385, 554.631 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/catch = SubResource( 1 )
+anims/rir = SubResource( 2 )
+
+[node name="rir2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="captura2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Sprite" type="Sprite" parent="HUD"]
+position = Vector2( 385, 628.629 )
+texture = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="HUD"]
+margin_left = 346.0
+margin_top = 601.0
+margin_right = 426.0
+margin_bottom = 656.0
+custom_fonts/font = SubResource( 3 )
+text = "000"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="HUD"]
+margin_top = 685.0
+margin_right = 768.0
+margin_bottom = 725.0
+custom_fonts/font = SubResource( 3 )
+text = "Made by Nuno Miranda | MirandaMon"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="flyaway" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="caiu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -5.049
+pitch_scale = 0.73
+mix_target = 2
+
+[connection signal="timeout" from="duckgenerate" to="." method="_on_duckgenerate_timeout"]
+[connection signal="timeout" from="espera" to="." method="_on_espera_timeout"]
+[connection signal="body_entered" from="topo" to="." method="_on_topo_body_entered"]
+[connection signal="body_entered" from="chao" to="." method="_on_chao_body_entered"]

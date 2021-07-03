@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/cao_captura.wav-5b13d29f8ff5ad1707a410a0cfa4b17c.sample"
+
+[deps]
+
+source_file="res://assets/sons/cao_captura.wav"
+dest_files=[ "res://.import/cao_captura.wav-5b13d29f8ff5ad1707a410a0cfa4b17c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
