@@ -65,7 +65,7 @@ func atualizaturno():
 		if flyaway == 1:
 			$AnimationPlayer.play("rir")
 			catchs=0
-			$HUD/Label.text= catchs
+			$HUD/Label.text= str(catchs)
 			$rir2.play()
 		else:
 			$AnimationPlayer.play("catch")

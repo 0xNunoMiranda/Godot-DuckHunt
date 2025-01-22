@@ -128,12 +128,9 @@ margin_top = 685.0
 margin_right = 768.0
 margin_bottom = 725.0
 custom_fonts/font = SubResource( 3 )
-text = "Made by Nuno Miranda | MirandaMon"
+text = "Made by Nuno Miranda | 0xNunoMiranda"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="flyaway" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
